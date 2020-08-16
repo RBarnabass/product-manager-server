@@ -1,6 +1,7 @@
 package com.product.manager.server.exception.api;
 
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import java.time.LocalDateTime;
 import java.util.HashMap;
 
+import static com.product.manager.server.exception.api.ExceptionCode.DUPLICATE_VALUE;
 import static com.product.manager.server.exception.api.ExceptionCode.VALIDATION_FAILED;
 import static org.springframework.core.Ordered.HIGHEST_PRECEDENCE;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
@@ -53,6 +55,16 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         apiError.addValidationError(exception.getBindingResult().getGlobalErrors());
         log.error("Validation error in handleMethodArgumentNotValid exception handler");
         log.error(exception.getMessage());
+        return buildResponseEntity(apiError);
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    protected ResponseEntity<Object> handleConstraintFails(final ConstraintViolationException exception) {
+        final ApiError apiError = new ApiError();
+        apiError.setStatus(BAD_REQUEST);
+        apiError.setExceptionCode(DUPLICATE_VALUE.getCode());
+        apiError.setDebugMessage("Cannot add or update row: duplicated value");
+        log.error(exception.getMessage(), exception);
         return buildResponseEntity(apiError);
     }
 

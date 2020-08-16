@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 @Mapper(componentModel = "spring")
 public interface ProductConverter extends Converter<Product, ProductDTO> {
 
+    @Mapping(target = "currencyExchangeInfo", source = "currencyExchangeInfo")
     ProductDTO convertToDto(final Product product);
 
     @Mapping(target = "currency.name", source = "createProductDTO.currencyName")

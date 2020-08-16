@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import static org.springframework.http.HttpStatus.SERVICE_UNAVAILABLE;
 
 @ResponseStatus(SERVICE_UNAVAILABLE)
-public class CurrencyApiException extends ProductManagerException {
+public class CurrencyApiResponseParsingException extends ProductManagerException {
 
-    public CurrencyApiException(final String message, final ExceptionCode exceptionCode) {
+    public CurrencyApiResponseParsingException(final String message, final ExceptionCode exceptionCode) {
         super(message, exceptionCode);
     }
 }

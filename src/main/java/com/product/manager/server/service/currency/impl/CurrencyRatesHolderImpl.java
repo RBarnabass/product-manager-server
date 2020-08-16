@@ -21,6 +21,11 @@ public class CurrencyRatesHolderImpl implements CurrencyRatesHolder {
     }
 
     @Override
+    public BigDecimal getRate(final Currency currency) {
+        return rates.get(currency.getName());
+    }
+
+    @Override
     public boolean contains(final Currency currency) {
         return rates.containsKey(currency.getName().toLowerCase());
     }

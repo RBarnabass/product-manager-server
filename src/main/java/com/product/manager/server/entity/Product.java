@@ -10,6 +10,7 @@ import java.util.List;
 import static com.product.manager.server.constant.DigitConstant.MAX_PRODUCT_MODEL_LENGTH;
 import static com.product.manager.server.constant.DigitConstant.MAX_PRODUCT_NAME_LENGTH;
 import static com.product.manager.server.constant.Table.PRODUCTS;
+import static javax.persistence.CascadeType.ALL;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -31,6 +32,9 @@ public class Product extends BaseEntity {
 
     @ManyToOne
     private Currency currency;
+
+    @OneToOne(cascade = ALL)
+    private CurrencyExchangeInfo currencyExchangeInfo;
 
     @ManyToMany
     private List<Category> categories;

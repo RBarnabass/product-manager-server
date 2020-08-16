@@ -19,7 +19,7 @@ import static org.springframework.http.HttpStatus.OK;
 @Slf4j
 @Validated
 @RestController
-@RequestMapping("/api/v1/product/manager")
+@RequestMapping("/api/v1/product/manager/products")
 public class ProductController {
 
     private final ProductService productService;
@@ -32,7 +32,7 @@ public class ProductController {
     }
 
 
-    @PostMapping("/products")
+    @PostMapping
     @ResponseStatus(CREATED)
     public ProductDTO add(@Validated @RequestBody final CreateProductDTO createProductDTO) {
         final Product product = productConverter.convertToEntity(createProductDTO);
@@ -40,21 +40,21 @@ public class ProductController {
         return productConverter.convertToDto(savedProduct);
     }
 
-    @GetMapping("/products/{id}")
+    @GetMapping("/{id}")
     @ResponseStatus(OK)
     public ProductDTO get(@PathVariable(value = "id") final Long id) {
         final Product product = productService.get(id);
         return productConverter.convertToDto(product);
     }
 
-    @GetMapping("/products")
+    @GetMapping
     @ResponseStatus(OK)
     public List<ProductDTO> getAll() {
         final List<Product> products = productService.getAll();
         return productConverter.convertToDto(products);
     }
 
-    @PutMapping("/products/{id}")
+    @PutMapping("/{id}")
     @ResponseStatus(OK)
     public ProductDTO update(@Validated @RequestBody final CreateProductDTO createProductDTO,
                               @PathVariable("id") final Long id) {
@@ -63,7 +63,7 @@ public class ProductController {
         return productConverter.convertToDto(updateProduct);
     }
 
-    @DeleteMapping("/products/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(OK)
     public void delete(@PathVariable("id") final Long id) {
         productService.delete(id);

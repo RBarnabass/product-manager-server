@@ -2,6 +2,7 @@ package com.product.manager.server.service.product.impl;
 
 import com.product.manager.server.entity.Category;
 import com.product.manager.server.entity.Currency;
+import com.product.manager.server.entity.CurrencyExchangeInfo;
 import com.product.manager.server.entity.Product;
 import com.product.manager.server.exception.DataNotFoundException;
 import com.product.manager.server.repository.ProductRepository;
@@ -14,13 +15,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 import static com.product.manager.server.exception.api.ExceptionCode.PRODUCT_NOT_FOUND;
+import static java.math.RoundingMode.UP;
 
 @Slf4j
 @Service
 public class ProductServiceImpl implements ProductService {
+
+    private static final String EUR = "EUR";
 
     private final CurrencyService currencyService;
     private final CategoryService categoryService;
@@ -47,6 +53,9 @@ public class ProductServiceImpl implements ProductService {
         final Currency currency = currencyService.getByName(product.getCurrency().getName());
         product.setCategories(categories);
         product.setCurrency(currency);
+        if (!EUR.equalsIgnoreCase(currency.getName())) {
+            convertProductPriceToEuro(product);
+        }
         return productRepository.save(product);
     }
 
@@ -80,5 +89,13 @@ public class ProductServiceImpl implements ProductService {
             throw new DataNotFoundException("Product does not exist.", PRODUCT_NOT_FOUND);
         }
         productRepository.deleteById(id);
+    }
+
+    private void convertProductPriceToEuro(final Product product) {
+        final BigDecimal rate = currencyService.getRate(product.getCurrency());
+        final BigDecimal priceInEuro = product.getPrice().divide(rate, UP);
+        product.setPrice(priceInEuro);
+        product.setCurrencyExchangeInfo(new CurrencyExchangeInfo(product.getCurrency(), rate));
+        product.setCurrency(currencyService.getByName(EUR));
     }
 }

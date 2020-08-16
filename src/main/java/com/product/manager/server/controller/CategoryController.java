@@ -18,7 +18,7 @@ import static org.springframework.http.HttpStatus.OK;
 @Slf4j
 @Validated
 @RestController
-@RequestMapping("/api/v1/product/manager")
+@RequestMapping("/api/v1/product/manager/categories")
 public class CategoryController {
 
     private final CategoryService categoryService;
@@ -31,7 +31,7 @@ public class CategoryController {
     }
 
 
-    @PostMapping("/categories")
+    @PostMapping
     @ResponseStatus(CREATED)
     public CategoryDTO add(@Validated @RequestBody final CreateCategoryDTO createCategoryDTO) {
         final Category category = categoryConverter.convertToEntity(createCategoryDTO);
@@ -39,21 +39,21 @@ public class CategoryController {
         return categoryConverter.convertToDto(savedCategory);
     }
 
-    @GetMapping("/categories/{id}")
+    @GetMapping("/{id}")
     @ResponseStatus(OK)
     public CategoryDTO get(@PathVariable("id") final Long categoryId) {
         final Category category = categoryService.get(categoryId);
         return categoryConverter.convertToDto(category);
     }
 
-    @GetMapping("/categories")
+    @GetMapping
     @ResponseStatus(OK)
     public List<CategoryDTO> getAll() {
         final List<Category> categories = categoryService.getAll();
         return categoryConverter.convertToDto(categories);
     }
 
-    @PutMapping("/categories/{id}")
+    @PutMapping("/{id}")
     @ResponseStatus(OK)
     public CategoryDTO update(@Validated @RequestBody final CreateCategoryDTO createCategoryDTO,
                               @PathVariable("id") final Long id) {
@@ -62,7 +62,7 @@ public class CategoryController {
         return categoryConverter.convertToDto(updatedCategory);
     }
 
-    @DeleteMapping("/categories/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(OK)
     public void delete(@PathVariable("id") final Long id) {
         categoryService.delete(id);

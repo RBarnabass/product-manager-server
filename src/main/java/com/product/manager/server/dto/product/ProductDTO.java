@@ -1,6 +1,7 @@
 package com.product.manager.server.dto.product;
 
 import com.product.manager.server.entity.Currency;
+import com.product.manager.server.entity.CurrencyExchangeInfo;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -16,4 +17,5 @@ public class ProductDTO {
     private BigDecimal price;
     private Currency currency;
     private List<String> categories;
+    private CurrencyExchangeInfo currencyExchangeInfo;
 }

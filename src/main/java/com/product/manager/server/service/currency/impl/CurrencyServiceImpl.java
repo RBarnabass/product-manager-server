@@ -45,8 +45,8 @@ public class CurrencyServiceImpl implements CurrencyService {
 
     @Override
     public void updateCurrencyRates() {
-        currencyHolder.saveCurrencyRates(
-                currencyProvider.getCurrencyRates());
+        final Map<String, BigDecimal> currencyRates = currencyProvider.getCurrencyRates();
+        currencyHolder.saveCurrencyRates(currencyRates);
     }
 
     @Override
@@ -54,6 +54,11 @@ public class CurrencyServiceImpl implements CurrencyService {
         return currencyRepository.findByName(name).orElseThrow(() -> {
             throw new DataNotFoundException("Currency does not exist.", CURRENCY_NOT_FOUND);
         });
+    }
+
+    @Override
+    public BigDecimal getRate(final Currency currency) {
+        return currencyHolder.getRate(currency);
     }
 
     private List<Currency> buildCurrencyModels(final Map<String, BigDecimal> currencyRates) {
