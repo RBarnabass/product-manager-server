@@ -8,7 +8,8 @@ public enum ExceptionCode {
     DUPLICATE_VALUE(1004),
     CURRENCY_UPDATE_FAILURE(1005),
     CATEGORY_CAN_NOT_BE_REMOVED(1006),
-    VALIDATION_FAILED(1007);
+    VALIDATION_FAILED(1007),
+    AUTHORIZATION_FAILED(1008);
 
     private final int exceptionCode;
 

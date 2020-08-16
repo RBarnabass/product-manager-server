@@ -12,4 +12,10 @@ public class DigitConstant {
     public static final int MAX_PRODUCT_MODEL_LENGTH = 40;
 
     public static final int MAX_CURRENCY_NAME_LENGTH = 3;
+
+    public static final int MIN_USERNAME_LENGTH = 3;
+    public static final int MAX_USERNAME_LENGTH = 20;
+
+    public static final int MIN_PASSWORD_LENGTH = 5;
+    public static final int MAX_PASSWORD_LENGTH = 30;
 }

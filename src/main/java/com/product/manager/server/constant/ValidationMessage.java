@@ -27,4 +27,12 @@ public class ValidationMessage {
     public static final String CURRENCY_NAME_CAN_NOT_BE_BLANK = "Currency name can not be null or empty.";
     public static final String CURRENCY_NAME_LENGTH_SHOULD_BE_IN_SCOPE = "Currency name length should be " +
             MAX_CURRENCY_NAME_LENGTH + " chars.";
+
+    public static final String USERNAME_CAN_NOT_BE_BLANK = "Username can not be null or empty.";
+    public static final String USERNAME_LENGTH_SHOULD_BE_IN_SCOPE = "Username length should be " +
+            MIN_USERNAME_LENGTH + " and " + MAX_USERNAME_LENGTH + ".";
+
+    public static final String PASSWORD_CAN_NOT_BE_BLANK = "Password can not be null or empty.";
+    public static final String PASSWORD_LENGTH_SHOULD_BE_IN_SCOPE = "Password length should be " +
+            MIN_PASSWORD_LENGTH + " and " + MAX_PASSWORD_LENGTH + ".";
 }
