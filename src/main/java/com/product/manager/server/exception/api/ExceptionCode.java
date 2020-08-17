@@ -1,5 +1,8 @@
 package com.product.manager.server.exception.api;
 
+/**
+ * Exception codes provides possibility for internationalisation
+ */
 public enum ExceptionCode {
 
     CATEGORY_NOT_FOUND(1001),
@@ -9,7 +12,9 @@ public enum ExceptionCode {
     CURRENCY_UPDATE_FAILURE(1005),
     CATEGORY_CAN_NOT_BE_REMOVED(1006),
     VALIDATION_FAILED(1007),
-    AUTHORIZATION_FAILED(1008);
+    AUTHORIZATION_FAILED(1008),
+    JSON_IS_MALFORMED(1009),
+    NO_EXCEPTION_HANDLER(1010);
 
     private final int exceptionCode;
 
