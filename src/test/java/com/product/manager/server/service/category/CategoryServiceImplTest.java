@@ -11,8 +11,10 @@ import com.product.manager.server.service.validator.CategoryValidator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,10 +25,11 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 public class CategoryServiceImplTest {
 
-    private CategoryService categoryService;
+    @InjectMocks
+    private CategoryServiceImpl categoryService;
 
     @Mock
     private CategoryValidator categoryValidator;
@@ -42,7 +45,6 @@ public class CategoryServiceImplTest {
         category = new Category();
         category.setProducts(List.of());
         reset(categoryValidator, categoryRepository);
-        categoryService = new CategoryServiceImpl(categoryValidator, categoryRepository);
     }
 
     @AfterEach

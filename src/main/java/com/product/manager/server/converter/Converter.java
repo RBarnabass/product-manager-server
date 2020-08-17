@@ -3,6 +3,11 @@ package com.product.manager.server.converter;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * General converter
+ * @param <E> entity
+ * @param <D> DTO
+ */
 public interface Converter<E, D> {
 
     D convertToDto(final E e);
