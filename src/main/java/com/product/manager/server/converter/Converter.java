@@ -10,8 +10,18 @@ import java.util.stream.Collectors;
  */
 public interface Converter<E, D> {
 
+    /**
+     * Conver entity to DTO
+     * @param e entity
+     * @return DTO
+     */
     D convertToDto(final E e);
 
+    /**
+     * Convert list of entities to list of DTO's
+     * @param entities list of entities
+     * @return list of DTO's
+     */
     default List<D> convertToDto(List<E> entities) {
         return entities.stream()
                 .map(this::convertToDto)
