@@ -44,7 +44,6 @@ public class CategoryServiceImplTest {
     public void setUp() {
         category = new Category();
         category.setProducts(List.of());
-        reset(categoryValidator, categoryRepository);
     }
 
     @AfterEach
