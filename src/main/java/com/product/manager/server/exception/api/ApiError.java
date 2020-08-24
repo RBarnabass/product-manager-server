@@ -30,6 +30,18 @@ class ApiError {
     private String debugMessage;
     private List<ApiSubError> subErrors;
 
+    void addValidationErrors(final List<FieldError> fieldErrors) {
+        fieldErrors.forEach(this::addValidationError);
+    }
+
+    void addValidationError(final List<ObjectError> globalErrors) {
+        globalErrors.forEach(this::addValidationError);
+    }
+
+    void addValidationErrors(final Set<ConstraintViolation<?>> constraintViolations) {
+        constraintViolations.forEach(this::addValidationError);
+    }
+
     private void addSubError(final ApiSubError subError) {
         if (subErrors == null) {
             subErrors = new ArrayList<>();
@@ -37,7 +49,8 @@ class ApiError {
         subErrors.add(subError);
     }
 
-    private void addValidationError(final String object, final String field, final Object rejectedValue, final String message) {
+    private void addValidationError(final String object, final String field,
+                                    final Object rejectedValue, final String message) {
         addSubError(new ApiValidationError(object, field, rejectedValue, message));
     }
 
@@ -50,25 +63,13 @@ class ApiError {
                 fieldError.getDefaultMessage());
     }
 
-    void addValidationErrors(final List<FieldError> fieldErrors) {
-        fieldErrors.forEach(this::addValidationError);
-    }
-
     private void addValidationError(final ObjectError objectError) {
         this.addValidationError(objectError.getObjectName(), objectError.getDefaultMessage());
-    }
-
-    void addValidationError(final List<ObjectError> globalErrors) {
-        globalErrors.forEach(this::addValidationError);
     }
 
     private void addValidationError(final ConstraintViolation<?> constraintViolation) {
         this.addValidationError(constraintViolation.getRootBeanClass().getSimpleName(),
                 ((PathImpl) constraintViolation.getPropertyPath()).getLeafNode().asString(),
                 constraintViolation.getInvalidValue(), constraintViolation.getMessage());
-    }
-
-    void addValidationErrors(final Set<ConstraintViolation<?>> constraintViolations) {
-        constraintViolations.forEach(this::addValidationError);
     }
 }
