@@ -7,17 +7,17 @@ pipeline {
                 sh 'mvn clean compile'
             }
         }
-
-        stage ('Testing Stage') {
-            steps {
-                sh 'mvn clean test'
-            }
-        }
-
-        stage ('Build Stage') {
-            steps {
-                sh 'mvn clean build'
-            }
-        }
+//
+//         stage ('Testing Stage') {
+//             steps {
+//                 sh 'mvn clean test'
+//             }
+//         }
+//
+//         stage ('Build Stage') {
+//             steps {
+//                 sh 'mvn clean build'
+//             }
+//         }
     }
 }
