@@ -2,10 +2,9 @@ package com.product.manager.server.service.currency.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.product.manager.server.dto.currency.CurrencyApiResponseDTO;
-import com.product.manager.server.exception.CurrencyApiResponseParsingException;
-import com.product.manager.server.service.currency.CurrencyProvider;
+
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +13,10 @@ import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
 import java.util.Map;
+
+import com.product.manager.server.service.currency.CurrencyProvider;
+import com.product.manager.server.dto.currency.CurrencyApiResponseDTO;
+import com.product.manager.server.exception.CurrencyApiResponseParsingException;
 
 import static com.product.manager.server.exception.api.ExceptionCode.CURRENCY_UPDATE_FAILURE;
 
